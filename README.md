@@ -3,11 +3,11 @@ hubspot용 funsms kako, sms 연동 앱
 신규 funsms연동 계약 발생시 
 
 1. https 도메인 생성
-   gcp conloe 로그인
-   http 허용
-   전용 포트 dns 지정
-   /etc/nginx/conf.d/ 에 고객사 conf 파일 생성
-   sudo certbot certonly 로 https 키 생성
+   - gcp conloe 로그인
+   - http 허용
+   - 전용 포트 dns 지정
+   - /etc/nginx/conf.d/ 에 고객사 conf 파일 생성
+   - sudo certbot certonly 로 https 키 생성
    
 3. private app 생성
    
