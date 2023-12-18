@@ -7,8 +7,9 @@ hubspot용 funsms kako, sms 연동 앱
      - developer@performars.com
      
    - 대상 vpc 선택
-   - http 허용
-   - 전용 포트 dns 지정
+   - 방화벽 http 허용
+   - 방화벽 전용 port open
+   - 고객 dns 입력
    - /etc/nginx/conf.d/ 에 고객사 conf 파일 생성
    - sudo certbot certonly 로 https 키 생성
    
