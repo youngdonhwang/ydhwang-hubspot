@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+  <title>알림톡</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+
+  <script type="text/javascript" src="/static/js/axios.min.js"></script>
+  <script type="text/javascript" src="/static/js/common.js"></script>
+  <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" /> -->
+
+  <!-- <link rel="stylesheet" href="/static/style.css" /> -->
+
+  <!-- ================== datepicker ==================-->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script> -->
+  <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script> -->
+
+  <!-- TODO script 숨겨야됨 -- net::ERR_SSL_PROTOCOL_ERROR 해결-->
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" /> -->
+  <!-- ================================================-->
+</head>
+
+<body>
+  <main class="wrapper">
+    <div class="container">
+      <div class="title">
+        <h4>알림톡 전송</h4>
+      </div>
+      <br />
+      <form class="main-form needs-validation" method="post" novalidate>
+        <!-- ==================== Input Sender, Receiver v2 ====================  -->
+        <div class="form-group template">
+          <div class="row">
+            <div class="col">
+              <label for="receiveNum1" class="datails">템플릿</label>
+              <select class="form-control" id="keycode" name="keycode" required>
+                <% for (const a of alim) { %>
+                  <option value="<%= a.keycode %>" data-tempContent="<%= a.tempContent %>"><%= a.name %></option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group senderReceiver">
+          <div class="row">
+            <div class="col">
+              <label for="receiveNum1" class="datails">수신자 번호</label>
+              <input type="text" name="receiveNum1" id="receiveNum1" class="form-control" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="'-'없이 입력해주세요" required />
+              <div class="invalid-feedback">
+                수신 번호를 입력해주세요<br />형식에 맞지 않는 번호입니다.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <!-- ==================================================================  -->
+
+        <!-- ==================== input message ==================== -->
+        <div class="form-group message">
+          <label for="tempContent">문자내용 #{가변}을 제외한 등록된 템플릿의 정보 준수</label>
+          <textarea class="form-control" name="tempContent" id="tempContent" rows="7" maxlength="1000" placeholder="[주의] 문자내용을 붙여넣기 하는 경우 실제 발송된 문자에 물음표(?)가 추가될 수 있으니 반드시 확인하신 후 발송하시기 바랍니다." required><%= alim[0]?.tempContent || "" %></textarea>
+          <div class="invalid-feedback">내용을 입력해주세요.</div>
+        </div>
+        <!-- ===================================================  -->
+
+
+
+
+        <!-- ========================= Input image ============================= -->
+        <!-- <div class="form-group image" style="width: 100%">
+              <label for="select_type" class="name">SMS 형태</label>
+              <div class="form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="text_type"
+                  name="select_type"
+                  value="text_type"
+                  onclick="imgCheck()"
+                  checked
+                />
+                텍스트형
+              </div>
+              <div class="form-check-inline">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="img_type"
+                  name="select_type"
+                  value="img_type"
+                  onclick="imgCheck();"
+                />
+                이미지형
+              </div>
+              <div id="ifImg" style="display: none">
+                <div class="form-group" style="width: 100%">
+                  <label for="img_attach">이미지 첨부</label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    type="url"
+                    name="img_url"
+                    id="img_url"
+                    placeholder="이미지 url을 입력하세요"
+                    oninput="saveImageUrl()"
+                  />
+                </div>
+              </div>
+            </div> -->
+        <!-- ================================================================  -->
+
+        <!-- ============================ Set sending time ============================  -->
+        <%#
+        <div class="form-group senderReceiver">
+          <div class="row">
+            <div class="col">
+              <label for="link_name" class="datails">링크 이름</label>
+              <input type="text" name="link_name" id="link_name" class="form-control" required />
+            </div>
+            <div class="col">
+              <label for="link_path" class="datails">링크 주소</label>
+              <input type="text" name="link_path" id="link_path" class="form-control" required />
+            </div>
+          </div>
+        </div>
+         %>
+        <!-- ======================================================================  -->
+
+        <!-- ==================== Send button ====================  -->
+        <div class="form-group send">
+          <div class="button">
+            <input type="submit" id="submit" value="전송" />
+          </div>
+        </div>
+
+        <div class="form-group sendResult" id="sendResult"><label></label></div>
+        <!-- =====================================================  -->
+    </div>
+    </form>
+
+  </div>
+</main>
+
+<!-- <script src="/static/chingutalk.js"></> -->
+<!-- <script src="../controllers/c_sms.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+<script>
+  document.querySelector("#keycode").addEventListener("change", (event) => {
+    event.preventDefault();
+    const { tempcontent } = document.querySelector("#keycode").selectedOptions[0].dataset;
+    document.querySelector("#tempContent").value = tempcontent;
+  });
+
+  document.querySelector("form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitBtn = document.querySelector("#submit");
+    submitBtn.disabled = true;
+
+    const data = {};
+    for (const [k, v] of new FormData(event.target).entries()) {
+      data[k] = v;
+    }
+
+    try {
+      const results = await axios.post(event.target.action, data);
+      // console.log(results.data);
+      if (results.data.code === "0") {
+        document.querySelector("#sendResult label").textContent = "메시지 전송에 성공하였습니다.";
+      } else {
+        document.querySelector("#sendResult label").textContent = "메시지 전송에 실패하였습니다.";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    submitBtn.disabled = false;
+  });
+</script>
+
+</body>
+
+</html>

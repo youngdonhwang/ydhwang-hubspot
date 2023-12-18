@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="../static/css/style.css" />
+</head>
+
+<body>
+  <main class="wrapper">
+    <div class="container">
+
+      <form action="" method="get">
+        <input type="hidden" name="apikey" value="<%=apikey%>" />
+
+        <div class="form-group send">
+          <div class="button">
+            <input class="urlBtn" type="button" value="SMS 보내기" data-url="/kakao/sms/undefined" />
+          </div>
+        </div>
+        <br /><br /><br />
+
+        <div class="form-group send">
+          <div class="button">
+            <input class="urlBtn" type="button" value="카카오 알림톡 보내기" data-url="/kakao/alim/undefined" />
+          </div>
+        </div>
+        <br /><br /><br />
+
+        <div class="form-group send">
+          <div class="button">
+            <input class="urlBtn" type="button" value="카카오 친구톡 보내기" data-url="/kakao/chingu/undefined" />
+          </div>
+        </div>
+        <br /><br /><br />
+
+<%# 
+        <div class="form-group send">
+          <div class="button">
+            <input class="urlBtn" type="button" value="포인트조회" data-url="/point-check" />
+          </div>
+        </div>
+        <br /><br /><br />
+%>
+      </form>
+
+    </div>
+  </main>
+
+  <script>
+    for (const _btn of document.querySelectorAll("input.urlBtn")) {
+      _btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        const _form = _btn.closest("form");
+        _form.action = _btn.dataset.url;
+        _form.submit();
+      });
+    }
+    
+  </script>
+</body>
+
+</html>

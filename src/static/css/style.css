@@ -1,0 +1,348 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0px;
+  background: #c0c0c0;
+}
+
+.wrapper {
+  width: 430px;
+  max-width: 480px;
+  height: 100%;
+  padding: 25px 25px;
+  border-radius: 5px;
+  background: #fffafa;
+}
+
+.navigation {
+  width: 100%;
+  height: 100px;
+}
+
+.navigation-item {
+  list-style: none;
+}
+
+.mainContainer {
+  max-height: 700px;
+  width: 100%;
+}
+
+.mainContainer .title {
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.mainContainer .title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100px;
+  background: #c0c0c0;
+}
+/* #86c1cc; */
+
+input::placeholder {
+  font-size: 12px;
+}
+
+.form-group {
+  max-width: 500px;
+}
+
+.form-group time {
+  max-width: 400px;
+}
+
+.card {
+  font-size: 12px;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  /*768 픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    background: white;
+    max-height: 100%;
+  }
+
+  .senderReceiver {
+    width: 100%;
+  }
+  .form-group .row {
+    display: block;
+  }
+}
+
+@media (min-height: 951px) {
+  .wrapper {
+    min-height: 751px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 950px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 750px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 900px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 700px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 850px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 650px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+@media (max-height: 800px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 600px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 750px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 550px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 700px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 600px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 650px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 550px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+@media (max-height: 600px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 500px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+@media (max-height: 550px) {
+  /*750픽셀 아래부터 적용, screen and 는 생략가능*/
+  .wrapper {
+    max-height: 450px;
+    overflow-y: scroll;
+    max-height: 100%;
+  }
+  .wrapper::-webkit-scrollbar {
+    width: 0;
+  }
+  /* .inputDetails {height: 400px; overflow-y: hidden;} */
+  .navigation {
+    max-height: 70px;
+  }
+  .row .col input {
+    max-height: 50px;
+  }
+}
+
+/* ===== send button ===== */
+form .button {
+  height: 45px;
+}
+
+form .button input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  background: #c0c0c0;
+  cursor: pointer;
+}
+
+form .button input:hover {
+  background: linear-gradient(-135deg, #c0c0c0, #d4d3d3);
+}
+/* ================= */
+.tpl_btn_del,
+.downbtn,
+.upbtn {
+  text-align: center;
+  font-size: small;
+  padding: 3px 7px;
+  width: 55px;
+  height: 30px;
+  margin: 3px;
+}
+
+a:visited {
+  color: #000;
+}
+
+a {
+  text-decoration: none;
+}
+
+a .button {
+  height: 45px;
+}
+
+a .button {
+  /* height: 100%; */
+  width: 100%;
+  outline: none;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  background: #c0c0c0;
+}
+
+a .button :hover {
+  background: linear-gradient(-135deg, #c0c0c0, #d4d3d3);
+}
+/* ================= */
+.tpl_btn_del,
+.downbtn,
+.upbtn {
+  text-align: center;
+  font-size: small;
+  padding: 3px 7px;
+  width: 55px;
+  height: 30px;
+  margin: 3px;
+}
