@@ -4,7 +4,7 @@ hubspot용 funsms kako, sms 연동 앱
 
 1. https 도메인 생성
    - gcp console 로그인
-     -> developer@performars.com
+     -> "developer@performars.com"
      
    - 대상 vpc 선택
    - http 허용
