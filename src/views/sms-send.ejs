@@ -38,14 +38,14 @@
           <div class="row">
             <div class="col">
               <label for="sendNum" class="datails">발신자 번호</label>
-              <input type="text" name="sendNum" id="sendNum" class="form-control" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="'-'없이 입력해주세요" required />
+              <input type="text" name="sendNum" id="sendNum" class="form-control" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="'-'없이 입력해주세요" value="<%= sender %>" required />
               <div class="invalid-feedback">
                 발신 번호를 입력해주세요<br />형식에 맞지 않는 번호입니다.
               </div>
             </div>
             <div class="col">
               <label for="receiveNum1" class="datails">수신자 번호</label>
-              <input type="text" name="receiveNum1" id="receiveNum1" class="form-control" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="'-'없이 입력해주세요" list="contactInfo" required />
+              <input type="text" name="receiveNum1" id="receiveNum1" class="form-control" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" placeholder="'-'없이 입력해주세요" list="contactInfo" value="<%= phone %>" required />
               <datalist id="contactInfo">
                 <option value="0"></option>
                 <option value="0"></option>
@@ -172,7 +172,7 @@
 
       try {
         const results = await axios.post(event.target.action, data);
-        console.log(results.data);
+        // console.log(results.data);
         if (results.data.code === "0") {
           document.querySelector("#sendResult label").textContent = "메시지 전송에 성공하였습니다.";
         } else {

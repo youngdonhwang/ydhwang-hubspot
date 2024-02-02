@@ -6,23 +6,23 @@ import { check_apikey } from "../controllers/c_check.js";
 const router = express.Router();
 
 /*******************************************************************
-  HubSpot : WSEKOREA-KAKAO
+  HubSpot : KAKAO
   CRM card : Data fetch URL
 *******************************************************************/
 router.get("/main", async (req, res) => {
   try {
     const { G_BASE_URL, G_APP_API_KEY } = process.env;
-    let { hs_object_id, phone, mobilephone } = req.query;
+    let { hs_object_id, phone, mobilephone, userEmail } = req.query;
 
-    if (mobilephone) {
-      phone = mobilephone.replaceAll("-", "").replace("+82", "0");
-    } else if (phone) {
+    if (phone) {
       phone = phone.replaceAll("-", "").replace("+82", "0");
+    } else if (mobilephone) {
+      phone = mobilephone.replaceAll("-", "").replace("+82", "0");
     } else {
       phone = "";
     }
 
-    const sms_url = `${G_BASE_URL}/kakao/sms/${hs_object_id}?apikey=${G_APP_API_KEY}`;
+    const sms_url = `${G_BASE_URL}/kakao/sms/${hs_object_id}?apikey=${G_APP_API_KEY}&phone=${phone}&userEmail=${userEmail}`;
     const alim_url = `${G_BASE_URL}/kakao/alim/${hs_object_id}?apikey=${G_APP_API_KEY}&phone=${phone}`;
     const chingu_url = `${G_BASE_URL}/kakao/chingu/${hs_object_id}?apikey=${G_APP_API_KEY}&phone=${phone}`;
 
@@ -58,12 +58,39 @@ router.get("/main", async (req, res) => {
 /* SMS 화면 */
 router.get("/sms/:hs_object_id", async (req, res) => {
   try {
-    const { apikey, phone } = req.query;
-    // const hs_object_id = req.params.hs_object_id;
+    const { G_HUBSPOT_API_KEY } = process.env;
+    const { apikey, phone, userEmail } = req.query;
 
     if (check_apikey(apikey)) return res.render("index.ejs", { domain: process.env.G_DOMAIN });
 
-    res.render("sms-send.ejs", { phone: phone });
+    /* userEmail로 발신번호 조회 */
+    const config = {
+      headers: {
+        Authorization: `Bearer ${G_HUBSPOT_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    const search = {
+      filterGroups: [
+        {
+          filters: [ 
+            { propertyName: "email", operator: "EQ", value: userEmail }
+          ],
+        }
+      ],
+      properties: ["phone"],
+    };
+
+    let sender;
+    try {
+      const result = await axios.post("https://api.hubapi.com/crm/v3/objects/contacts/search", search, config);
+      sender = result.data.results[0].properties.phone.replaceAll("-", "").replace("+82", "0");
+    } catch (error) {
+      sender = "";
+    }
+
+    res.render("sms-send.ejs", { phone: phone, sender: sender });
   } catch (err) {
     console.log(err);
   }
@@ -73,7 +100,6 @@ router.get("/sms/:hs_object_id", async (req, res) => {
 router.get("/alim/:hs_object_id", async (req, res) => {
   try {
     const { apikey, phone } = req.query;
-    // const hs_object_id = req.params.hs_object_id;
 
     if (check_apikey(apikey)) return res.render("index.ejs", { domain: process.env.G_DOMAIN });
 
@@ -87,7 +113,6 @@ router.get("/alim/:hs_object_id", async (req, res) => {
 router.get("/chingu/:hs_object_id", async (req, res) => {
   try {
     const { apikey, phone } = req.query;
-    // const hs_object_id = req.params.hs_object_id;
 
     if (check_apikey(apikey)) return res.render("index.ejs", { domain: process.env.G_DOMAIN });
 
